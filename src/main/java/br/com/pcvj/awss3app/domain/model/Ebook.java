@@ -1,12 +1,8 @@
 package br.com.pcvj.awss3app.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -15,7 +11,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Getter
-@Setter
 @Builder
 @Entity
 public class Ebook {
@@ -31,22 +26,37 @@ public class Ebook {
 
     private String author;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private FileReference cover;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private FileReference attachment;
+
     protected Ebook() {
     }
 
     public Ebook(UUID id, OffsetDateTime createdAt,
-                 String title, String author) {
+                 String title, String author,
+                 FileReference cover, FileReference attachment) {
         Objects.requireNonNull(title);
         Objects.requireNonNull(author);
+        Objects.requireNonNull(cover);
+        Objects.requireNonNull(attachment);
+
         this.id = id;
         this.createdAt = createdAt;
         this.title = title;
         this.author = author;
+        this.cover = cover;
+        this.attachment = attachment;
     }
 
     public void update(Ebook ebookUpdated) {
+        Objects.requireNonNull(ebookUpdated);
         this.title = ebookUpdated.title;
         this.author = ebookUpdated.author;
+        this.cover = ebookUpdated.cover;
+        this.attachment = ebookUpdated.attachment;
     }
 
     @Override
