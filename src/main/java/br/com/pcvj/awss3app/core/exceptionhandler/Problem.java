@@ -1,4 +1,4 @@
-package br.com.pcvj.awss3app.exceptionhandler;
+package br.com.pcvj.awss3app.core.exceptionhandler;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

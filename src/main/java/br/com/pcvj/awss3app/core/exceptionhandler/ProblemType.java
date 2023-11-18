@@ -1,4 +1,4 @@
-package br.com.pcvj.awss3app.exceptionhandler;
+package br.com.pcvj.awss3app.core.exceptionhandler;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package br.com.pcvj.awss3app.exceptionhandler;
+package br.com.pcvj.awss3app.core.exceptionhandler;
 
 import br.com.pcvj.awss3app.domain.exception.BusinessException;
 import jakarta.persistence.EntityNotFoundException;
