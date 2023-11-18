@@ -32,4 +32,10 @@ public class StorageService {
         Objects.requireNonNull(fileReference);
         return this.cloudStorageProvider.fileExists(fileReference.getPath());
     }
+
+    public void softDelete(FileReference fileReference) {
+        Objects.requireNonNull(fileReference);
+        this.cloudStorageProvider
+                .moveFile(fileReference.getPath(), "deleted/" + fileReference.getPath());
+    }
 }

@@ -80,11 +80,11 @@ public class FileReference {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FileReference that = (FileReference) o;
-        return temp == that.temp && Objects.equals(id, that.id) && Objects.equals(createdAt, that.createdAt) && Objects.equals(fileName, that.fileName) && Objects.equals(contentType, that.contentType) && Objects.equals(contentLength, that.contentLength) && type == that.type;
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdAt, fileName, contentType, contentLength, temp, type);
+        return Objects.hash(id);
     }
 }
