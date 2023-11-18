@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 
 import java.net.URL;
 import java.time.Duration;
-import java.util.Objects;
 
 @Component
 @AllArgsConstructor
@@ -32,7 +31,7 @@ public class S3CloudStorageProvider implements CloudStorageProvider {
     public URL generatePresignedUploadUrl(FileReference fileReference) {
         var awsRequestOverrideConfiguration = AwsRequestOverrideConfiguration.builder();
 
-        if (fileReference.isPublicAccess()) {
+        if (fileReference.isPublicAccessible()) {
             awsRequestOverrideConfiguration.putRawQueryParameter("x-amz-acl", "public-read");
         }
 
@@ -41,7 +40,7 @@ public class S3CloudStorageProvider implements CloudStorageProvider {
                 .key(fileReference.getPath())
                 .contentType(fileReference.getContentType())
                 .contentLength(fileReference.getContentLength())
-                .acl(fileReference.isPublicAccess() ? "public-read" : null)
+                .acl(fileReference.isPublicAccessible() ? "public-read" : null)
                 .overrideConfiguration(awsRequestOverrideConfiguration.build())
                 .build();
 

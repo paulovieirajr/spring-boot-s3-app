@@ -63,7 +63,7 @@ public class FileReference {
         this.type = type;
     }
 
-    public boolean isPublicAccess() {
+    public boolean isPublicAccessible() {
         return type.publicAccess;
     }
 
@@ -72,7 +72,7 @@ public class FileReference {
     }
 
     public String getPath() {
-        return this.id + "_" + this.fileName;
+        return this.id + "/" + this.fileName;
     }
 
     @Override

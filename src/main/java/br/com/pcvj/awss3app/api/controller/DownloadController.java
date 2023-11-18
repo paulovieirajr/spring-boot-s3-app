@@ -28,7 +28,7 @@ public class DownloadController {
         var fileReference = fileReferenceRepository.findById(fileReferenceId)
                 .orElseThrow(EntityNotFoundException::new);
 
-        if (fileReference.isPublicAccess()) {
+        if (fileReference.isPublicAccessible()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
