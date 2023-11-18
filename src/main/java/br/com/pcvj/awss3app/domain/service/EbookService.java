@@ -3,10 +3,10 @@ package br.com.pcvj.awss3app.domain.service;
 
 import br.com.pcvj.awss3app.domain.model.Ebook;
 import br.com.pcvj.awss3app.domain.repository.EbookRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import jakarta.persistence.EntityNotFoundException;
 
 import java.util.Objects;
 
@@ -15,14 +15,21 @@ import java.util.Objects;
 public class EbookService {
 
     private final EbookRepository ebookRepository;
+    private final FileVerificator fileVerificator;
 
     @Transactional
     public Ebook create(Ebook ebook) {
         Objects.requireNonNull(ebook);
-
+        fileVerificator.verifyIfCoverExists(ebook);
+        fileVerificator.verifyIfAttachmentExists(ebook);
+        setTempToFalse(ebook);
         ebookRepository.save(ebook);
-
         return ebook;
+    }
+
+    static void setTempToFalse(Ebook ebook) {
+        ebook.getCover().setTemp(false);
+        ebook.getAttachment().setTemp(false);
     }
 
     @Transactional
